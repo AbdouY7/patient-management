@@ -51,4 +51,13 @@ public class PatientService {
         Patient updatedPatient = patientRepository.save(patient);
         return PatientMapper.toDTO(updatedPatient);
     }
+
+    public void deletePatient (UUID id ){
+
+        if (!patientRepository.existsById(id)) {
+            throw new PatientNotExistsException("Patient with id " + id + " does not exist");
+        }
+
+        patientRepository.deleteById(id);
+    }
 }
