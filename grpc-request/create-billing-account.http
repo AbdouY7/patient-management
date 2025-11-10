@@ -1,0 +1,7 @@
+GRPC localhost:9001/BillingService/CreateBillingAccount
+
+{
+  "patientId": "d5981e43-c3d0-47fa-883f-30aee7d4037f",
+  "name": "abdou ben with billing account 5555555",
+  "email": "abbilling444@gmail.com"
+}

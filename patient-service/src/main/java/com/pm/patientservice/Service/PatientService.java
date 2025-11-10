@@ -6,6 +6,9 @@ import com.pm.patientservice.Exception.EmailAlreadyExistsException;
 import com.pm.patientservice.Exception.PatientNotExistsException;
 import com.pm.patientservice.Mapper.PatientMapper;
 import com.pm.patientservice.Repository.PatientRepository;
+//import com.pm.patientservice.grpc.BillingGrpcServiceClient;
+import com.pm.patientservice.grpc.BillingServiceGrpcClient;
+import com.pm.patientservice.kafka.KafkaProducer;
 import com.pm.patientservice.model.Patient;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,9 +22,13 @@ import java.util.UUID;
 
 @Service
 public class PatientService {
-    private  PatientRepository patientRepository;
-    public PatientService(PatientRepository patientRepository) {
+    private final  PatientRepository patientRepository;
+    private final BillingServiceGrpcClient billingServiceGrpcClient;
+    private final KafkaProducer kafkaProducer;
+    public PatientService(PatientRepository patientRepository ,  BillingServiceGrpcClient billingServiceGrpcClient , KafkaProducer kafkaProducer) {
         this.patientRepository = patientRepository;
+        this.billingServiceGrpcClient = billingServiceGrpcClient;
+        this.kafkaProducer = kafkaProducer;
     }
     public List<PatientResponseDTO> getPatients (){
         List<Patient> patients = patientRepository.findAll();
@@ -34,6 +41,11 @@ public class PatientService {
             throw new EmailAlreadyExistsException("Patient with this email already exists " + patientRequestDTO.getEmail() );
         }
        Patient newPatient = patientRepository.save(PatientMapper.toPatient(patientRequestDTO));
+//        billingGrpcServiceClient.createBillingAccount(newPatient.getId().toString() , newPatient.getName() , newPatient.getEmail() );
+        billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(), newPatient.getName() , newPatient.getEmail()).toBuilder();
+
+        kafkaProducer.sendEvent(newPatient);
+
         return PatientMapper.toDTO(newPatient);
     }
 

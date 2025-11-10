@@ -1,0 +1,52 @@
+package com.pm.doctorservice.Services;
+
+
+import com.pm.doctorservice.DTO.DoctorRequestDTO;
+import com.pm.doctorservice.DTO.DoctorResponseDTO;
+import com.pm.doctorservice.Entity.Doctor;
+import com.pm.doctorservice.Exception.ExistingDoctorException;
+import com.pm.doctorservice.Mapper.DoctorMapper;
+import com.pm.doctorservice.Repository.DoctorRepository;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@Service
+@Data
+@AllArgsConstructor
+public class DoctorService {
+
+    private final DoctorRepository doctorRepository;
+
+    public List<DoctorResponseDTO> getAllDoctors() {
+        List<Doctor> doctors = doctorRepository.findAll();
+        List<DoctorResponseDTO> doctorResponseDTOs = new ArrayList<>();
+
+        return doctors.stream().map(DoctorMapper::toDoctorResponseDTO).toList();
+    }
+
+
+    public DoctorResponseDTO getDoctorById(UUID id) {
+        if (!doctorRepository.existsById(id)) {
+            throw new ExistingDoctorException("this doctor is not existed with this id");
+        }
+        return DoctorMapper.toDoctorResponseDTO(doctorRepository.findById(id).get());
+    }
+
+    public DoctorResponseDTO createDoctor(DoctorRequestDTO doctorRequestDTO) {
+        if (doctorRepository.existsByDoctorEmail(doctorRequestDTO.getDoctorEmail()) || doctorRepository.existsByDoctorPhone(doctorRequestDTO.getDoctorPhone())) {
+            throw new ExistingDoctorException("this doctor already exists");
+        }
+        Doctor newDoctor = DoctorMapper.toDoctor(doctorRequestDTO);
+        newDoctor = doctorRepository.save(newDoctor);
+        return DoctorMapper.toDoctorResponseDTO(newDoctor);
+    }
+
+
+
+}

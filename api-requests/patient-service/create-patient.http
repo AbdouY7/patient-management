@@ -1,0 +1,13 @@
+### create patient request to example server
+POST http://localhost:4000/patients
+Content-Type: application/json
+
+{
+  "name": "abdou benazzi 101",
+  "email": "abbillingben1014@gmail.com",
+  "address": "750 Pole belabas8, Springfield",
+  "dateOfBirth": "2004-01-07",
+  "registeredDate": "2025-03-22"
+}
+
+###
