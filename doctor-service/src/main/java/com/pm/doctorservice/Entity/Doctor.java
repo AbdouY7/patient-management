@@ -1,9 +1,6 @@
 package com.pm.doctorservice.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +12,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "doctor", schema = "public")
 public class Doctor {
 
 
@@ -23,13 +21,13 @@ public class Doctor {
     private UUID doctorId;
 
     @NotNull
-    private String doctorName;
+    private String name;
 
     @NotNull
-    private String doctorEmail;
+    private String email;
 
     @NotNull
-    private String doctorPhone;
+    private String phone;
 
     @NotNull
     private String speciality;

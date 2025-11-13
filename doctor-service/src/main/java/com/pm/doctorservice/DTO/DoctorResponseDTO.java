@@ -17,5 +17,5 @@ public class DoctorResponseDTO {
     private String name;
     private String email;
     private String phone;
-    private String sepeciality;
+    private String speciality;
 }

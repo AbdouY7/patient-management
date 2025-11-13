@@ -9,7 +9,6 @@ import com.pm.doctorservice.Mapper.DoctorMapper;
 import com.pm.doctorservice.Repository.DoctorRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class DoctorService {
     }
 
     public DoctorResponseDTO createDoctor(DoctorRequestDTO doctorRequestDTO) {
-        if (doctorRepository.existsByDoctorEmail(doctorRequestDTO.getDoctorEmail()) || doctorRepository.existsByDoctorPhone(doctorRequestDTO.getDoctorPhone())) {
+        if (doctorRepository.existsByEmail(doctorRequestDTO.getEmail()) || doctorRepository.existsByPhone(doctorRequestDTO.getPhone())) {
             throw new ExistingDoctorException("this doctor already exists");
         }
         Doctor newDoctor = DoctorMapper.toDoctor(doctorRequestDTO);
@@ -47,6 +46,32 @@ public class DoctorService {
         return DoctorMapper.toDoctorResponseDTO(newDoctor);
     }
 
+    public DoctorResponseDTO updateDoctor(UUID id, DoctorRequestDTO doctorRequestDTO) {
+        if (!doctorRepository.existsById(id)) {
+            throw new ExistingDoctorException("this doctor is not existed");
+        }
+        Doctor doctor = doctorRepository.findById(id).orElse(null);
+
+
+        doctor.setName(doctorRequestDTO.getName());
+        doctor.setPhone(doctorRequestDTO.getPhone());
+        doctor.setEmail(doctorRequestDTO.getEmail());
+        doctor.setSpeciality(doctorRequestDTO.getSpeciality());
+
+        doctorRepository.save(doctor);
+
+        return DoctorMapper.toDoctorResponseDTO(doctor);
+
+
+    }
+
+
+    public void deleteDoctor(UUID id) {
+        if (!doctorRepository.existsById(id)) {
+            throw new ExistingDoctorException("this doctor is not existed");
+        }
+        doctorRepository.deleteById(id);
+    }
 
 
 }

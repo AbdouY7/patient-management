@@ -46,4 +46,16 @@ public class DoctorServiceController {
         DoctorResponseDTO doctorResponseDTO =  doctorService.createDoctor(doctorRequestDTO);
         return ResponseEntity.ok().body(doctorResponseDTO);
     }
+
+    @PutMapping("/updateDoctor/{id}")
+    public ResponseEntity<DoctorResponseDTO> UpdateDoctor(@PathVariable("id") UUID id ,@Valid @RequestBody DoctorRequestDTO doctorRequestDTO){
+            DoctorResponseDTO doctorResponseDTO = doctorService.updateDoctor(id , doctorRequestDTO);
+            return ResponseEntity.ok().body(doctorResponseDTO);
+    }
+
+    @DeleteMapping("/deleteDoctor/{id}")
+    public ResponseEntity<String> DeleteDoctor(@PathVariable("id") UUID id){
+             doctorService.deleteDoctor(id);
+             return ResponseEntity.ok().body("Delete Doctor Successfully");
+    }
 }

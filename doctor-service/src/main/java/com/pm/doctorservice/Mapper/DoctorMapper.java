@@ -9,19 +9,19 @@ public class DoctorMapper {
     public static DoctorResponseDTO toDoctorResponseDTO(Doctor doctor) {
         DoctorResponseDTO doctorResponseDTO = new DoctorResponseDTO();
         doctorResponseDTO.setId(doctor.getDoctorId().toString());
-        doctorResponseDTO.setName(doctor.getDoctorName());
-        doctorResponseDTO.setEmail(doctor.getDoctorEmail());
-        doctorResponseDTO.setPhone(doctor.getDoctorPhone());
-        doctorResponseDTO.setSepeciality(doctor.getSpeciality());
+        doctorResponseDTO.setName(doctor.getName());
+        doctorResponseDTO.setEmail(doctor.getEmail());
+        doctorResponseDTO.setPhone(doctor.getPhone());
+        doctorResponseDTO.setSpeciality(doctor.getSpeciality());
         return doctorResponseDTO;
     }
 
     public static Doctor toDoctor(DoctorRequestDTO doctorRequestDTO) {
         Doctor doctor = new Doctor();
-        doctor.setDoctorName(doctorRequestDTO.getDoctorName());
-        doctor.setDoctorEmail(doctorRequestDTO.getDoctorEmail());
-        doctor.setDoctorPhone(doctorRequestDTO.getDoctorPhone());
-        doctor.setSpeciality(doctorRequestDTO.getSpecialty());
+        doctor.setName(doctorRequestDTO.getName());
+        doctor.setEmail(doctorRequestDTO.getEmail());
+        doctor.setPhone(doctorRequestDTO.getPhone());
+        doctor.setSpeciality(doctorRequestDTO.getSpeciality());
         return doctor;
 
     }
