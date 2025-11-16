@@ -39,6 +39,11 @@ public class DoctorServiceController {
         DoctorResponseDTO doctorResponseDTO = doctorService.getDoctorById(id);
         return ResponseEntity.ok().body(doctorResponseDTO);
     }
+    @GetMapping("/{email}")
+    public ResponseEntity<DoctorResponseDTO> getDoctorsByEmail(@PathVariable("email") String email){
+            DoctorResponseDTO  doctorResponseDTO = doctorService.getDoctorByEmail(email);
+            return ResponseEntity.ok().body(doctorResponseDTO);
+    }
 
     @PostMapping("/createDoctor")
     public ResponseEntity<DoctorResponseDTO> CreateDoctor(@Valid @RequestBody DoctorRequestDTO doctorRequestDTO){

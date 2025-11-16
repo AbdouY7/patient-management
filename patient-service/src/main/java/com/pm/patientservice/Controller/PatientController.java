@@ -38,6 +38,12 @@ public class PatientController {
         return ResponseEntity.ok().body(patientResponseDTOS);
     }
 
+    @GetMapping("/{email}")
+    public ResponseEntity<PatientResponseDTO> getPatient(@PathVariable("email") String email){
+        PatientResponseDTO patientResponseDTO = patientService.getPatient(email);
+        return ResponseEntity.ok().body(patientResponseDTO);
+    }
+
     @PostMapping
     @Operation(summary = "Create a new patient")
     public ResponseEntity<PatientResponseDTO> createPatient (@Validated({Default.class , CreatePatientValidatorGroup.class}) @RequestBody PatientRequestDTO patientRequestDTO){
@@ -51,6 +57,8 @@ public class PatientController {
         PatientResponseDTO patientResponseDTO = patientService.updatePatient(id,patientRequestDTO);
         return ResponseEntity.ok().body(patientResponseDTO);
     }
+
+
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a patient")

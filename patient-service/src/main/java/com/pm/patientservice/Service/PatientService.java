@@ -72,4 +72,12 @@ public class PatientService {
 
         patientRepository.deleteById(id);
     }
+
+    public PatientResponseDTO getPatient (String email ){
+        if(!patientRepository.existsByEmail(email)){
+            throw new PatientNotExistsException("Patient with email " + email + " does not exist");
+        }
+         PatientResponseDTO patientResponseDTO = PatientMapper.toDTO(patientRepository.findByEmail(email));
+        return patientResponseDTO;
+    }
 }

@@ -73,5 +73,12 @@ public class DoctorService {
         doctorRepository.deleteById(id);
     }
 
+    public DoctorResponseDTO getDoctorByEmail(String email) {
+        if (!doctorRepository.existsByEmail(email)) {
+            throw new ExistingDoctorException("this doctor is not existed");
+        }
+        return DoctorMapper.toDoctorResponseDTO(doctorRepository.findDoctorByEmail(email));
+    }
+
 
 }
