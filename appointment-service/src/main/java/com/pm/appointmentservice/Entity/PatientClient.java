@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.UUID;
 
-@FeignClient(name = "patient-service", url = "http://localhost:4000")
+@FeignClient(name = "patient-service")
 public interface PatientClient {
     @GetMapping("/patients/{email}")
     PatientResponseDTO getPatient(@PathVariable("email") String email);

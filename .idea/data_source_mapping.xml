@@ -4,6 +4,9 @@
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/14b0d443-3c2d-45e8-ad7f-8cecfac757a2/console.sql" value="14b0d443-3c2d-45e8-ad7f-8cecfac757a2" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/14b0d443-3c2d-45e8-ad7f-8cecfac757a2/console_1.sql" value="14b0d443-3c2d-45e8-ad7f-8cecfac757a2" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/14b0d443-3c2d-45e8-ad7f-8cecfac757a2/console_2.sql" value="14b0d443-3c2d-45e8-ad7f-8cecfac757a2" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/scratches/ddl_MedicalRecord.sql" value="3e92c735-206f-47c4-8321-588e5fb8e059" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/scratches/ddl_Medication.sql" value="3e92c735-206f-47c4-8321-588e5fb8e059" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/scratches/ddl_Prescription.sql" value="3e92c735-206f-47c4-8321-588e5fb8e059" />
     <file url="file://$PROJECT_DIR$/doctor-service/ddl_Doctor.sql" value="14b0d443-3c2d-45e8-ad7f-8cecfac757a2" />
   </component>
 </project>
